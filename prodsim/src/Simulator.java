@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulator {
+public class Simulator implements SensorChangeObserver{
     private List<Machine> machines;
     private ControlSystemAPI api;
     
@@ -11,8 +11,13 @@ public class Simulator {
         for(int i = 0; i<3; i++){
             machines.add(new Machine(i,this));
         }
+
+    
+        this.api.registerEmptyPlaceObserver(this);
+        this.api.registerFullPlaceObserver(this);
     }
 
+    @Override
     public void onEmptyPlaceSensorChanged(){
         //if emptyplace == full "Leergut" available
         if(api.getEmptyPlaceSensor()){
@@ -27,6 +32,7 @@ public class Simulator {
         }
     }
 
+    @Override
     public void onFullPlaceSensorChanged(){
         //if fullplace == empty "Vollgut" can be unloaded
         if(!api.getFullPlaceSensor()){
