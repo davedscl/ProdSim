@@ -1,4 +1,3 @@
 
 prodsim/bin/
-
-prodsim/.vscode/
+*.class
