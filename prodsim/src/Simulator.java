@@ -13,7 +13,32 @@ public class Simulator {
         }
     }
 
+    public void onEmptyPlaceSensorChanged(){
+        //if emptyplace == full "Leergut" available
+        if(api.getEmptyPlaceSensor()){
+            System.out.println("Empty Container available - searching for machine for production");
+            for(Machine machine: machines){
+                //machine not in production
+                if(!machine.hasEmptyContainer() && !machine.hasFullContainer()){
+                    machine.loadEmptyContainer();
+                    break;
+                }
+            }
+        }
+    }
 
+    public void onFullPlaceSensorChanged(){
+        //if fullplace == empty "Vollgut" can be unloaded
+        if(!api.getFullPlaceSensor()){
+            System.out.println("Full place available - checking machines for full containers ");
+            for(Machine machine: machines){
+                if(machine.hasFullContainer()){
+                    machine.unloadFullContainer();
+                    break;
+                }
+            }
+        }
+    }
 
     
     public boolean emptyContainerAvailable(){
@@ -41,7 +66,5 @@ public class Simulator {
     public void killTimer(int timerId){
         api.killTimer(timerId);
     }
-
-
 
 }
