@@ -19,6 +19,7 @@ public class Machine {
         // if "Leergutplatz" has empty container 
         if(simulator.emptyContainerAvailable() && !hasEmptyContainer){
             simulator.takeEmptyContainer();
+            System.out.println("Machine "+machineId+": took empty container");
             hasEmptyContainer=true;
             startProduction();
         }
@@ -26,7 +27,7 @@ public class Machine {
 
     private void startProduction(){
         if(hasEmptyContainer && !hasFullContainer){
-            currentTimerId = simulator.startTimer(5, ()->finishProduction());
+            currentTimerId = simulator.startTimer(20, ()->finishProduction());
         }
     }
 
