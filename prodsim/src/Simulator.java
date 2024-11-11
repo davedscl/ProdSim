@@ -52,7 +52,6 @@ public class Simulator implements SensorChangeObserver{
     }
 
     public void takeEmptyContainer(){
-        System.out.println("Empty container is taken");
         api.setEmptyPlaceSensor(false);
     }
 
@@ -61,7 +60,6 @@ public class Simulator implements SensorChangeObserver{
     }
 
     public void placeFullContainer(){
-        System.out.println("Full container is placed");
         api.setFullPlaceSensor(true);
     }
 
@@ -71,6 +69,10 @@ public class Simulator implements SensorChangeObserver{
 
     public void killTimer(int timerId){
         api.killTimer(timerId);
+    }
+
+    public List<Machine> getMachines() {
+        return machines;
     }
 
 }
