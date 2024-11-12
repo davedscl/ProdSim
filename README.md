@@ -14,6 +14,10 @@ The factory has the following setup:
 - The simulator's task is to simulate the switching of the occupied sensors based on the machines' operations: The "Empty Container Place" sensor is set to free when an empty container is loaded into a machine, and the "Full Container Place" sensor is set to occupied when a full container is produced by a machine.
 
 
+
+![image](programmingAssignment.png)
+
+
 ## Implementation
 Key components: 
 - Simulator.java: Class that orchestrates the simulation and coordinates the machines 
