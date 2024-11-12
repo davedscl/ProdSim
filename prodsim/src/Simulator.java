@@ -1,30 +1,32 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulator implements SensorChangeObserver{
+import api.ControlSystemAPI;
+import api.SensorChangeObserver;
+
+public class Simulator implements SensorChangeObserver {
     private List<Machine> machines;
     private ControlSystemAPI api;
-    
-    public Simulator(ControlSystemAPI api){
+
+    public Simulator(ControlSystemAPI api) {
         this.api = api;
         this.machines = new ArrayList<>();
-        for(int i = 0; i<3; i++){
-            machines.add(new Machine(i,this));
+        for (int i = 0; i < 3; i++) {
+            machines.add(new Machine(i, this));
         }
 
-    
         this.api.registerEmptyPlaceObserver(this);
         this.api.registerFullPlaceObserver(this);
     }
 
     @Override
-    public void onEmptyPlaceSensorChanged(){
-        //if emptyplace == full "Leergut" available
-        if(api.getEmptyPlaceSensor()){
+    public void onEmptyPlaceSensorChanged() {
+        // if emptyplace == full "Leergut" available
+        if (api.getEmptyPlaceSensor()) {
             System.out.println("Empty Container available - searching for machine for production");
-            for(Machine machine: machines){
-                //machine not in production
-                if(!machine.hasEmptyContainer() && !machine.hasFullContainer()){
+            for (Machine machine : machines) {
+                // machine not in production
+                if (!machine.hasEmptyContainer() && !machine.hasFullContainer()) {
                     machine.loadEmptyContainer();
                     break;
                 }
@@ -33,12 +35,12 @@ public class Simulator implements SensorChangeObserver{
     }
 
     @Override
-    public void onFullPlaceSensorChanged(){
-        //if fullplace == empty "Vollgut" can be unloaded
-        if(!api.getFullPlaceSensor()){
+    public void onFullPlaceSensorChanged() {
+        // if fullplace == empty "Vollgut" can be unloaded
+        if (!api.getFullPlaceSensor()) {
             System.out.println("Full place available - checking machines for full containers ");
-            for(Machine machine: machines){
-                if(machine.hasFullContainer()){
+            for (Machine machine : machines) {
+                if (machine.hasFullContainer()) {
                     machine.unloadFullContainer();
                     break;
                 }
@@ -46,28 +48,27 @@ public class Simulator implements SensorChangeObserver{
         }
     }
 
-    
-    public boolean emptyContainerAvailable(){
+    public boolean emptyContainerAvailable() {
         return api.getEmptyPlaceSensor();
     }
 
-    public void takeEmptyContainer(){
+    public void takeEmptyContainer() {
         api.setEmptyPlaceSensor(false);
     }
 
-    public boolean fullPlaceAvailable(){
+    public boolean fullPlaceAvailable() {
         return !api.getFullPlaceSensor();
     }
 
-    public void placeFullContainer(){
+    public void placeFullContainer() {
         api.setFullPlaceSensor(true);
     }
 
-    public int startTimer(int seconds, Runnable callback){
+    public int startTimer(int seconds, Runnable callback) {
         return api.startTimer(seconds, callback);
     }
 
-    public void killTimer(int timerId){
+    public void killTimer(int timerId) {
         api.killTimer(timerId);
     }
 

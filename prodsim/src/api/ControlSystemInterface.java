@@ -1,3 +1,4 @@
+package api;
 public interface ControlSystemInterface {
     void setEmptyPlaceSensor(boolean value); //setzt den Belegtstatus des Leergutplatzes. value ist ein binärer Wert (true=belegt, false = frei)
     boolean getEmptyPlaceSensor(); //liefert einen binären Wert, welcher den Belegtstatus des Leergutplatzes angibt, zurück (true=belegt, false = frei)

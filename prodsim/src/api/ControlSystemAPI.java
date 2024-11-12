@@ -1,3 +1,4 @@
+package api;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -5,9 +6,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
-
-public class ControlSystemAPI implements ControlSystemInterface{
+public class ControlSystemAPI implements ControlSystemInterface {
 
     private boolean emptyPlaceSensor;
     private boolean fullPlaceSensor;
@@ -16,14 +15,13 @@ public class ControlSystemAPI implements ControlSystemInterface{
     private List<SensorChangeObserver> emptyPlaceObservers;
     private List<SensorChangeObserver> fullPlaceObservers;
 
-    public ControlSystemAPI(){
-        this.activeTimers= new HashMap<>();
+    public ControlSystemAPI() {
+        this.activeTimers = new HashMap<>();
         this.emptyPlaceSensor = false;
         this.fullPlaceSensor = false;
         this.emptyPlaceObservers = new ArrayList<>();
         this.fullPlaceObservers = new ArrayList<>();
     }
-
 
     public void registerEmptyPlaceObserver(SensorChangeObserver observer) {
         emptyPlaceObservers.add(observer);
@@ -47,11 +45,11 @@ public class ControlSystemAPI implements ControlSystemInterface{
 
     @Override
     public void setEmptyPlaceSensor(boolean value) {
-        if(this.emptyPlaceSensor != value) {
-            System.out.println("ControlSystem: EmptyPlaceSensor changed: "+value);
+        if (this.emptyPlaceSensor != value) {
+            System.out.println("ControlSystem: EmptyPlaceSensor changed: " + value);
             this.emptyPlaceSensor = value;
             notifyEmptyPlaceSensorChangeObservers();
-            //simulator.onEmptyPlaceSensorChanged();
+            // simulator.onEmptyPlaceSensorChanged();
         }
     }
 
@@ -62,11 +60,11 @@ public class ControlSystemAPI implements ControlSystemInterface{
 
     @Override
     public void setFullPlaceSensor(boolean value) {
-        if(this.fullPlaceSensor != value) {
-            System.out.println("ControlSystem: FullPlaceSensor changed: "+value);
+        if (this.fullPlaceSensor != value) {
+            System.out.println("ControlSystem: FullPlaceSensor changed: " + value);
             this.fullPlaceSensor = value;
             notifyFullPlaceSensorChangeObservers();
-            //simulator.onFullPlaceSensorChanged();
+            // simulator.onFullPlaceSensorChanged();
         }
     }
 
@@ -93,7 +91,7 @@ public class ControlSystemAPI implements ControlSystemInterface{
     @Override
     public void killTimer(int id) {
         TimerTask task = activeTimers.get(id);
-        if(task!=null){
+        if (task != null) {
             task.cancel();
             activeTimers.remove(id);
         }
